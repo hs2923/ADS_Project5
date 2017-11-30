@@ -1,0 +1,33 @@
+---
+title: "OkCupid"
+author: "Project 5"
+date: "November 30, 2017"
+output: html_document
+---
+
+Install Packages:
+
+```{r}
+install.packages("klaR")
+
+library(klaR)
+```
+
+Load Data:
+
+```{r}
+load("../data/profiles.RDA")
+```
+
+Cluster Data:
+
+```{r}
+sample.data <- profiles[,1:4]
+rows.to.exclude <- apply(apply(sample.data, 1, is.na), 2, sum)
+sample.data <- sample.data[!rows.to.exclude,]
+
+model1 <- kmodes(sample.data, 5)
+save(model1, file = "../output/kmodes_model.RData")
+```
+
+
